@@ -7,6 +7,9 @@
 
 #include "GPIO.h"
 
+
+///test
+///
 #ifdef _Test_Mode
 GPIO_Struct G, *GPIO_PortA = &G;
 #endif
