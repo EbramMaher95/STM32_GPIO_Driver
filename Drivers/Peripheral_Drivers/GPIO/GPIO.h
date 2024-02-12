@@ -31,11 +31,11 @@ typedef struct
 
 typedef enum
 {
-	GPIO_Out_PP = 0b0000,
-	GPIO_Out_OD = 0b0100,
+	GPIO_Out_PP = 0b0000, //push pull
+	GPIO_Out_OD = 0b0100, //open drain
 
-	GPIO_AF_Out_PP = 0b1000,
-	GPIO_AF_Out_OD = 0b1100,
+	GPIO_AF_Out_PP = 0b1000, //alternate function push pull
+	GPIO_AF_Out_OD = 0b1100, //alternate function open drain
 
 	GPIO_Input_Analog,
 
@@ -127,4 +127,7 @@ void GPIO_TogglePin(GPIO_Struct *Port, GPIO_Pin pin);
 /// @param pin pin number(s) to be written, to use multiple pins,
 /// use the or | operator
 void GPIO_Lock_Pin(GPIO_Struct *Port, GPIO_Pin pin, uint8_t Lock_Unlock);
+
+
+void HH();
 #endif /* MYGPIO_DRIVER_GPIO_H_ */

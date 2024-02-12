@@ -113,11 +113,13 @@ int main(void)
 	 * */
 
 	GPIO_Set_Pin(GPIO_PortC, GPIO_P13, 1);
+	GPIO_Set_Pin(GPIO_PortC, GPIO_P14, 1);
 
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
+
 
 	/* the below code blinks the LED connected to pin C13 forever */
 	while (1)
@@ -127,14 +129,17 @@ int main(void)
 		/* USER CODE BEGIN 3 */
 
 		//Turn on the LED connected top Pin C13
-		GPIO_Set_Pin(GPIO_PortC, GPIO_P13, 0);
+		GPIO_TogglePin(GPIO_PortC, GPIO_P13);
+		GPIO_TogglePin(GPIO_PortC, GPIO_P14);
 
 		//wait for 500ms (0.5 seconds)
 		HAL_Delay(500);
 
+		/*
 		//Turn off the LED
 		GPIO_Set_Pin(GPIO_PortC, GPIO_P13, 1);
-
+		GPIO_Set_Pin(GPIO_PortC, GPIO_P14, 1);
+*/
 		//wait for 500ms (0.5 seconds)
 		HAL_Delay(500);
 	}
