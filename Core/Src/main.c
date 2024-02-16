@@ -99,13 +99,19 @@ int main(void)
 	 * 	for driving LEDs, low speed is fine
 	 * */
 	GPIO_Config_t MyConfig =
-	{ .Mode = GPIO_Out_PP, .Speed = GPIO_Speed_Low, .pin = GPIO_P13 };
+	{ .Mode = GPIO_Out_PP, .Speed = GPIO_Speed_Low, .pin = (GPIO_P13) };
+
+	GPIO_Config_t MyConfig2 =
+		{ .Mode = GPIO_Out_PP, .Speed = GPIO_Speed_Low, .pin = (GPIO_P14) };
+
 
 	/*
 	 * 2- Pass a pointer of the config struct to the the GPIO_Init function
 	 *  along with the name of the GPIO we need to configure
 	 * */
 	GPIO_Init(GPIO_PortC, &MyConfig);
+
+	GPIO_Init(GPIO_PortC, &MyConfig2);
 
 	/*
 	 * 3- to set the logic level of an output pin, we use the
@@ -119,7 +125,7 @@ int main(void)
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-
+	GPIO_Lock_Pin(GPIO_PortC, GPIO_P14, 1);
 
 	/* the below code blinks the LED connected to pin C13 forever */
 	while (1)
