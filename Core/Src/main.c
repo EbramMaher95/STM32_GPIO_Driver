@@ -91,6 +91,7 @@ int main(void)
 	//this is done by using a predefined macro:
 	// __HAL_RCC_nameofperipheral_CLK_ENABLE();
 	__HAL_RCC_GPIOC_CLK_ENABLE();
+	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	/*
 	 * using the GPIO driver we created:
@@ -102,7 +103,7 @@ int main(void)
 	{ .Mode = GPIO_Out_PP, .Speed = GPIO_Speed_Low, .pin = (GPIO_P13) };
 
 	GPIO_Config_t MyConfig2 =
-		{ .Mode = GPIO_Out_PP, .Speed = GPIO_Speed_Low, .pin = (GPIO_P14) };
+		{ .Mode = GPIO_Out_PP, .Speed = GPIO_Speed_Low, .pin = (GPIO_P11) };
 
 
 	/*
@@ -111,7 +112,7 @@ int main(void)
 	 * */
 	GPIO_Init(GPIO_PortC, &MyConfig);
 
-	GPIO_Init(GPIO_PortC, &MyConfig2);
+	GPIO_Init(GPIO_PortB, &MyConfig2);
 
 	/*
 	 * 3- to set the logic level of an output pin, we use the
@@ -119,13 +120,16 @@ int main(void)
 	 * */
 
 	GPIO_Set_Pin(GPIO_PortC, GPIO_P13, 1);
-	GPIO_Set_Pin(GPIO_PortC, GPIO_P14, 1);
+	GPIO_Set_Pin(GPIO_PortB, GPIO_P11, 1);
 
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	GPIO_Lock_Pin(GPIO_PortC, GPIO_P14, 1);
+	GPIO_Lock_Pin(GPIO_PortB, GPIO_P11, 1);
+
+
+
 
 	/* the below code blinks the LED connected to pin C13 forever */
 	while (1)
@@ -136,19 +140,15 @@ int main(void)
 
 		//Turn on the LED connected top Pin C13
 		GPIO_TogglePin(GPIO_PortC, GPIO_P13);
-		GPIO_TogglePin(GPIO_PortC, GPIO_P14);
+		GPIO_TogglePin(GPIO_PortB, GPIO_P11);
 
 		//wait for 500ms (0.5 seconds)
 		HAL_Delay(500);
 
-		/*
-		//Turn off the LED
-		GPIO_Set_Pin(GPIO_PortC, GPIO_P13, 1);
-		GPIO_Set_Pin(GPIO_PortC, GPIO_P14, 1);
-*/
-		//wait for 500ms (0.5 seconds)
-		HAL_Delay(500);
+
+
 	}
+
 	/* USER CODE END 3 */
 }
 

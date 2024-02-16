@@ -97,7 +97,19 @@ void GPIO_Lock_Pin(GPIO_Struct *Port, GPIO_Pin pin, uint8_t Lock_Unlock){
 	{
 
 	case 1: //lock
+		/*
 		Port->GPIO_LCKR = (1<<16) | (pin) | Port->GPIO_LCKR;
+*/
+
+	Port->GPIO_LCKR = ((Port->GPIO_LCKR) & (0x1FFFF)) | pin;
+	Port->GPIO_LCKR = ((Port->GPIO_LCKR) & (0x0FFFF)) | pin;
+	Port->GPIO_LCKR = Port->GPIO_LCKR | (pin);
+	Port->GPIO_LCKR = ((Port->GPIO_LCKR) & (0x1FFFF)) | pin;
+
+
+
+
+
 
 		break;
 
