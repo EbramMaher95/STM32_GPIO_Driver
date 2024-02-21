@@ -123,10 +123,10 @@ int main(void)
 	GPIO_Set_Pin(GPIO_PortB, GPIO_P11, 1);
 
 	/* USER CODE END 2 */
-
+	GPIO_Lock_Pin(GPIO_PortB, GPIO_P11, 1);
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-	GPIO_Lock_Pin(GPIO_PortB, GPIO_P11, 1);
+
 
 
 

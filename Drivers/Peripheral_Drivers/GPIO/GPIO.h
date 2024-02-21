@@ -2,7 +2,7 @@
  * GPIO.h
  *
  *  Created on: Jan 7, 2024
- *      Author: Ramy Sorial
+ *      Author: Ebram Maher
  */
 
 #ifndef MYGPIO_DRIVER_GPIO_H_

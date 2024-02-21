@@ -2,11 +2,10 @@
  * GPIO.c
  *
  *  Created on: Jan 7, 2024
- *      Author: Ramy Sorial
+ *      Author: Ebram Maher
  */
 
 #include "GPIO.h"
-
 
 ///test
 ///
@@ -45,7 +44,7 @@ void GPIO_Init(GPIO_Struct *Port, GPIO_Config_t *conf) {
 	for (uint16_t x = 0; x < 16; x++) {
 		// if the pin is supposed to be configured
 		if (conf->pin & (1 << x)) {
-			// CRL is responsible fro pins 0-7
+			// CRL is responsible from pins 0-7
 			if (x < 8) {
 				// clear the old configuration using the 4-bit mask
 				Port->GPIO_CRL &= ~(Config_Mask << (4 * x));
@@ -80,47 +79,37 @@ void GPIO_Set_Pin(GPIO_Struct *Port, GPIO_Pin pin, uint8_t State) {
 
 void GPIO_TogglePin(GPIO_Struct *Port, GPIO_Pin pin) {
 
-
 	// Toggle the pin state using XOR
 	Port->GPIO_ODR ^= pin;
-
-
-
 }
 
-void GPIO_Lock_Pin(GPIO_Struct *Port, GPIO_Pin pin, uint8_t Lock_Unlock){
+void GPIO_Lock_Pin(GPIO_Struct *Port, GPIO_Pin pin, uint8_t Lock_Unlock) {
 
+	uint32_t l;
 	//write your code here to lock/unlock a GPIO Pin
 	// set 1 to lock and 0 to unlock
 	//switching over the 2 options
-	switch (Lock_Unlock)
-	{
+	if (Lock_Unlock > 0) {
 
-	case 1: //lock
-		/*
-		Port->GPIO_LCKR = (1<<16) | (pin) | Port->GPIO_LCKR;
-*/
+		Port->GPIO_LCKR |= pin;
+		Port->GPIO_LCKR |= (1 << 16);
 
-	Port->GPIO_LCKR = ((Port->GPIO_LCKR) & (0x1FFFF)) | pin;
-	Port->GPIO_LCKR = ((Port->GPIO_LCKR) & (0x0FFFF)) | pin;
-	Port->GPIO_LCKR = Port->GPIO_LCKR | (pin);
-	Port->GPIO_LCKR = ((Port->GPIO_LCKR) & (0x1FFFF)) | pin;
+		Port->GPIO_LCKR &= ~(1 << 16);
+		Port->GPIO_LCKR |= (1 << 16);
 
+		//1st read
+		l = Port->GPIO_LCKR;
+		//2nd read
+		l = Port->GPIO_LCKR;
 
+	}
 
+	else {
 
-
-
-		break;
-
-	case 0: //unlock
-
-		Port->GPIO_LCKR = Port->GPIO_LCKR & (~pin);
-		break;
-
-	default:
-
-		break;
+		Port->GPIO_LCKR &= ~pin;
+		Port->GPIO_LCKR |= pin;
+		l = Port->GPIO_LCKR;
+		l = Port->GPIO_LCKR;
 	}
 
 }
